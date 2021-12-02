@@ -1,28 +1,25 @@
-cover = go tool cover
-test = go test ./... -cover -count=1
-tmp = coverage.test
+.PHONY: all clean generate details html test update
 
-.PHONY: all clean generate details html update
-
-all: generate
-	$(test)
+all: clean test
 
 clean:
-	go get ./...
-	git clean -fdX
+	git clean -fX
 
-generate: clean
-	go install github.com/4rcode/gnomic/cmd/optgen@1.0
+generate:
+	go install github.com/4rcode/gnomic/cmd/optgen@latest
 	go generate ./...
 
-details: clean $(tmp)
-	$(cover) -func=$(tmp)
+details: coverage.test
+	go tool cover -func=$<
 
-html: clean $(tmp)
-	$(cover) -html=$(tmp)
+html: coverage.test
+	go tool cover -html=$<
+
+test: generate
+	go test -cover -count=1 ./...
 
 update:
 	go get -u ./...
 
-$(tmp): generate
-	$(test) -coverprofile=$(tmp)
+%.txt %.test: generate
+	go test -cover -count=1 -coverprofile=$@ ./...

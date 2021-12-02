@@ -1,9 +1,18 @@
-// - Builder configures the Builder used by an Inspector.
-//
-//
-// - Fallback configures arguments to use, when none are supplied during an
+package settings
+
+import (
+	"github.com/4rcode/gadget"
+	"github.com/4rcode/gnomic"
+)
+
+// Builder configures the Builder used by an Inspector.
+type Builder [1]gadget.Builder
+
+// Fallback configures arguments to use, when none are supplied during an
 // assertion. In this way, you can replace the default Detector with one or more
 // of your choice.
+type Fallback []interface{}
+
 //
 //
 // - Format configures how to print Detector errors (e.g. EqualTo()).
@@ -46,9 +55,8 @@
 //
 // The third argument is an empty string you can use to hide both value and
 // target. It can also be used as a spacer.
-package settings
 
-//go:generate optgen -n Builder -t [1]gadget.Builder -i="github.com/4rcode/gadget"
+//go:generate optgen -n Builder
 //go:generate optgen -n Fallback -t []interface{} -a -c nil
 //go:generate optgen -n Reporters -t []gadget.Reporter -a -c nil -i="github.com/4rcode/gadget"
 //go:generate optgen -t string -n Format
@@ -57,10 +65,6 @@ package settings
 //go:generate optgen -t string -n Separator
 //go:generate optgen -t string -n StringFormat
 //go:generate optgen -t string -n Template
-
-import (
-	"github.com/4rcode/gnomic"
-)
 
 // Options is a container for any option.
 type Options []gnomic.Option
