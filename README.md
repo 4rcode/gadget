@@ -1,7 +1,7 @@
 # gadget - assertion library
 
 [![
-	 Build
+	Build
 ](https://github.com/4rcode/gadget/actions/workflows/build.yml/badge.svg)
 ](https://github.com/4rcode/gadget/actions/workflows/build.yml)
 [![
